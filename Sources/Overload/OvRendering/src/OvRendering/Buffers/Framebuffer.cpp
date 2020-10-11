@@ -34,7 +34,7 @@ OvRendering::Buffers::Framebuffer::~Framebuffer()
 	/* Destroy OpenGL objects */
 	glDeleteBuffers(1, &m_bufferID);
 	glDeleteTextures(1, &m_renderTexture);
-	glGenRenderbuffers(1, &m_depthStencilBuffer);
+	glDeleteRenderbuffers(1, &m_depthStencilBuffer);
 }
 
 void OvRendering::Buffers::Framebuffer::Bind()
@@ -51,7 +51,7 @@ void OvRendering::Buffers::Framebuffer::Resize(uint16_t p_width, uint16_t p_heig
 {
 	/* Resize texture */
 	glBindTexture(GL_TEXTURE_2D, m_renderTexture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, p_width, p_height, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, p_width, p_height, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	/* Setup depth-stencil buffer (24 + 8 bits) */
